@@ -1,6 +1,6 @@
 public class Calculator {
 
-    private Double sum(Double a, double b) {
+    private Double sum(Double a, Double b) {
         return a + b;
     }
 
@@ -14,33 +14,29 @@ public class Calculator {
 
     private Double divide(Double a, Double b) {
         if (b == 0) {
-            System.out.println("Can't divide by ZERO!");
-            return Double.POSITIVE_INFINITY;
+            throw new RuntimeException("Division to ZERO is not defined.");
         }
         return a / b;
     }
 
-    public Double evaluate(Double a, Double b, Character c) {
-        return switch (c) {
+    private Double pow(Double a, Double b) {
+        return Math.pow(a, b);
+    }
+
+    private Double powTo2(Double a) {
+        return a * a;
+    }
+
+    public Double evaluate(Double a, Double b, Character operation) {
+        return switch (operation) {
             case '-' -> subtract(a, b);
             case '+' -> sum(a, b);
             case '*' -> multiply(a, b);
             case '/' -> divide(a, b);
-            default -> throw new RuntimeException("Wrong operator provided!");
+            case '^' -> pow(a, b);
+            case '$' -> powTo2(a);
+            default -> throw new RuntimeException("Wrong operation provided!");
         };
     }
 
-//    public Double evaluate(Double a, Double b, Character c) {
-//        if (c == '-') {
-//            return subtract(a, b);
-//        } else if (c == '+') {
-//            return sum(a, b);
-//        } else if (c == '*') {
-//            return multiply(a, b);
-//        } else if (c == '/') {
-//            return divide(a, b);
-//        } else {
-//            throw new RuntimeException("Wrong operator provided!");
-//        }
-//    }
 }
